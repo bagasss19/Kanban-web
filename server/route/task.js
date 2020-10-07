@@ -7,8 +7,7 @@ route.use(authentication)
 route.get('/', Task.read)
 route.post('/',Task.add)
 route.get('/:id',authorization,Task.readId)
-route.put('/:id',authorization,Task.editPut)
-route.patch('/:id',authorization,Task.editPatch)
+route.put('/:id',authorization,Task.edit)
 route.delete('/:id',authorization,Task.delete)
 
 module.exports = route

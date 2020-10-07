@@ -19,6 +19,7 @@ class Controller {
     }
 
     static readId(req,res,next) {
+        console.log(req.params.id);
         Task.findOne({
             where : {
                 id : req.params.id,
@@ -30,6 +31,7 @@ class Controller {
         })
         .catch(err => {
             next(err)
+            console.log(err);
         })
     }
 
@@ -44,26 +46,15 @@ class Controller {
         })
     }
 
-    static editPut (req,res,next) {
+    static edit (req,res,next) {
         Task.update(req.body, {
             where : {
                 id : req.params.id
-            }
+            },
+            returning : true
         })
         .then(data => {
-            res.status(200).json({data})
-        })
-        .catch(err => {
-            next(err)
-        })
-    }
-
-    static editPatch (req,res,next) {
-        Task.update(
-            { status: true},
-            { where: { id: req.params.id } })
-        .then(data => {
-            res.status(200).json({data})
+            res.status(200).json(data[1])
         })
         .catch(err => {
             next(err)

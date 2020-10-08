@@ -1,0 +1,137 @@
+body {
+  margin: 0;
+  font-family: "Sansita Swashed", cursive;
+  font-size: 14px;
+  line-height: 1.3em;
+}
+
+.ui {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 40px 40px 1fr;
+  grid-template-columns: 100%;
+  background-image: url("https://cdn.wallpaperhub.app/cloudcache/7/4/f/3/d/5/74f3d51cbec9db78da32e103de1b28538af1b76a.jpg");
+  background-size: cover;
+  color: #eee;
+}
+
+.navbar {
+  padding-left: 10px;
+  display: flex;
+}
+.navbar.app {
+  background-color: #0067a3;
+  font-size: 1.5rem;
+}
+.navbar.board {
+  font-size: 1.1rem;
+}
+
+.lists {
+  display: flex;
+  overflow-x: auto;
+}
+.lists > * {
+  flex: 0 0 auto;
+  margin-left: 10px;
+}
+.lists::after {
+  content: "";
+  flex: 0 0 10px;
+}
+
+.list {
+  width: 300px;
+  height: calc(100% - 10px - 17px);
+}
+.list > * {
+  background-color: #e2e4e6;
+  color: #333;
+  padding: 0 2em;
+}
+.list header {
+  line-height: 36px;
+  font-size: 16px;
+  font-weight: bold;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color:  #0067a3;
+}
+.list footer {
+  line-height: 36px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  color: #888;
+}
+.list button {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 13px;
+  padding: 0, 5em 0, 5em;
+}
+.list ul {
+  list-style: none;
+  margin: 0;
+  max-height: calc(100% - 36px - 36px);
+  overflow-y: auto;
+}
+.list ul li {
+  background-color: powderblue;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.list ul li:not(:last-child) {
+  margin-bottom: 10px;
+}
+.list ul li img {
+  display: block;
+  width: calc(100% + 2 * 10px);
+  margin: -10px 0 10px -10px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.my-form {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.my-form .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.login-form {
+  padding-top: 10rem;
+  padding-bottom: 1.5rem;
+}
+
+.login-form .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.text {
+  color: #0067a3;
+  font-size: large; 
+  text-align: center; 
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid blue;
+  height: 2em;
+}
+
+.smallText {
+  font-size: 12px;
+}
+
+.close {
+  cursor: pointer;
+  top: 50%;
+  right: 0%;
+  transform: translate(0%, -50%);
+}

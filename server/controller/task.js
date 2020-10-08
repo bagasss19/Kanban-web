@@ -1,16 +1,14 @@
-const { Task } = require('../models')
+const { Task, User } = require('../models')
 
 
 class Controller {
     static read (req,res,next) {
         Task.findAll({
-            where : {
-                UserId : req.userData
-            },
-            order : [['id', 'ASC']]
+            order : [['id', 'ASC']],
+            include : [User]
         })
         .then(data => {
-            res.status(200).json({data})
+            res.status(200).json(data)
         })
         .catch(err => {
             console.log(err);
@@ -39,7 +37,7 @@ class Controller {
        req.body.UserId = (req.userData); 
         Task.create(req.body)
         .then(data => {
-            res.status(201).json({data})
+            res.status(201).json(data)
         })
         .catch(err => {
             next(err)

@@ -9,8 +9,8 @@
                       @remove="remove"
                       @updateCategory='updateCategory'>
             </HomePage>
-            <Register v-else-if="pageName == 'register'" @changePage="changePage" @register="register"></Register>
-            <Login v-else-if="pageName == 'login'" @changePage="changePage" @login="login"></Login>
+            <Register v-else-if="pageName == 'register'" @changePage="changePage" @register="register" @glogin='glogin'></Register>
+            <Login v-else-if="pageName == 'login'" @changePage="changePage" @login="login" @glogin='glogin'></Login>
         </section>
 </template>
 
@@ -19,6 +19,7 @@ import HomePage from './views/homepage'
 import Login from './views/login'
 import Register from './views/register'
 import axios from '../config/axios'
+
 export default {
     name : "App",
     components : {
@@ -37,12 +38,12 @@ export default {
 
         }
     },
-    mounted() {
-        if (localStorage.token) {
-                return this.pageName = 'home-page'
-            }
-  }, created() {
-      this.read()
+    created() {
+      if (localStorage.token) {
+            this.read()    
+            return this.pageName = 'home-page'
+      }
+      
   }
   , methods : {
             read() {
@@ -56,9 +57,6 @@ export default {
                 .then(data => {
                     console.log(data.data,'<<< ini datanya');
                     this.tasks = data.data
-                })
-                .catch(err => {
-                    console.log(err.response, '<<<<eror read');
                 })
             },
             changePage(name) {
@@ -78,9 +76,6 @@ export default {
                     console.log(data, 'register sukses')
                     this.changePage('login')
                 })
-                .catch(err => {
-                    console.log(err.response, '<<<<eror register');
-                })
             },
 
             login(payload) {
@@ -97,9 +92,6 @@ export default {
                     localStorage.token = data.data.token
                     this.pageName = 'home-page'
                     this.read()
-                })
-                .catch(err => {
-                    console.log(err.response, '<<<<eror login');
                 })
             },
 
@@ -125,12 +117,9 @@ export default {
                     console.log(data.data);
                     this.read()
                 })
-                .catch(err => {
-                    console.log(err.response, '<<<<eror login');
-                })
             },
 
-               update(payload) {
+            update(payload) {
                   axios({
                     url : `/tasks/${payload.id}`,
                     method : 'put',
@@ -143,9 +132,6 @@ export default {
                 })
                 .then(data => {
                     this.read()
-                })
-                .catch(err => {
-                    console.log(err.response, '<<<<eror update');
                 })
             },
 
@@ -160,10 +146,8 @@ export default {
                 .then(data => {
                     this.read()
                 })
-                .catch(err => {
-                    console.log(err.response, '<<<<eror login');
-                })
             },
+            
             updateCategory(payload) {
                 console.log(payload.category.category, '<<<<<<ini payload patch');
              axios({
@@ -179,10 +163,26 @@ export default {
                 .then(data => {
                     this.read()
                 })
-                .catch(err => {
-                    console.log(err.response, '<<<<eror patch');
+            },
+
+             glogin(idToken) {
+                axios({
+                    url : '/googlelogin',
+                    method : 'post',
+                    data : {
+                        token : idToken
+                    }
                 })
-        }
+                .then(data => {
+                    console.log(data)
+                    localStorage.token = data.data.token
+                    this.pageName = 'home-page'
+                    this.read()
+                })
+                .catch(err => {
+                    console.log(err.response, '<<<<eror login');
+                })
+            }         
         }
 }
 </script>

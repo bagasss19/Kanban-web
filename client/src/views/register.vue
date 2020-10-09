@@ -29,11 +29,12 @@
                                 </button><br><br>
                                 <p>Already Have Account? login <a href="" @click.prevent="changePage">here</a></p>
                                 <p>
-                                   Or Login With
+                                   Or
                                 </p>
                                  <center><div class="g-signin2" data-onsuccess="onSignIn"></div></center>
                             </div>
                     </form>
+                     <center><button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button></center>
                 </div>
             </div>
         </div>
@@ -47,10 +48,21 @@ export default {
     data() {
         return {
             email : '',
-            password :''
+            password :'',
+            clientId: '484267733566-lbpdokvk0k3cme5vrl92456im55o8aj1.apps.googleusercontent.com'
         }
     },
     methods : {
+        OnGoogleAuthSuccess (idToken) {
+            console.log(idToken, 'token')
+            // Receive the idToken and make your magic with the backend
+            this.$emit('glogin', idToken)
+        },
+        
+        OnGoogleAuthFail (error) {
+             console.log(error, 'err')
+        },
+        
         changePage () {
             this.$emit('changePage','login')
         },

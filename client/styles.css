@@ -3,6 +3,8 @@ body {
   font-family: "Sansita Swashed", cursive;
   font-size: 14px;
   line-height: 1.3em;
+  background-image: url("https://cdn.wallpaperhub.app/cloudcache/7/4/f/3/d/5/74f3d51cbec9db78da32e103de1b28538af1b76a.jpg");
+  background-size: cover;
 }
 
 .ui {
@@ -10,8 +12,6 @@ body {
   display: grid;
   grid-template-rows: 40px 40px 1fr;
   grid-template-columns: 100%;
-  background-image: url("https://cdn.wallpaperhub.app/cloudcache/7/4/f/3/d/5/74f3d51cbec9db78da32e103de1b28538af1b76a.jpg");
-  background-size: cover;
   color: #eee;
 }
 

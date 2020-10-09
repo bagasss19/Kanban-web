@@ -4,7 +4,7 @@ const { Task, User } = require('../models')
 class Controller {
     static read (req,res,next) {
         Task.findAll({
-            order : [['id', 'ASC']],
+            order : [['updatedAt', 'ASC']],
             include : [User]
         })
         .then(data => {
@@ -67,6 +67,20 @@ class Controller {
         })
         .then(data => {
             res.status(200).json(`Task success to delete`)
+        })
+        .catch(err => {
+            next(err)
+        })
+    }
+
+    static patch(req,res,next) {
+        Task.update(
+            { category: req.body.category},
+            { where: { id: req.params.id },
+            returning : true
+        })
+        .then(data => {
+            res.status(200).json(data)
         })
         .catch(err => {
             next(err)

@@ -8,7 +8,9 @@
                 :category='category'
                 :tasks='tasks'
                 @add='add'
+                @update='update'
                 @remove='remove'
+                @updateCategory='updateCategory'
                 ></Category>
             </div>
         </div>
@@ -28,8 +30,15 @@
         add(payload) {
             this.$emit('add',payload)
         },
+
+        update(payload) {
+            this.$emit('update',payload)
+        },
         remove(id) {
             this.$emit('remove', id)
+        },
+        updateCategory(payload) {
+            this.$emit('updateCategory',payload)
         }
     }
     }

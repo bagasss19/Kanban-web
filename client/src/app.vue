@@ -5,9 +5,11 @@
                       :tasks="tasks" 
                       @logout="logout"
                       @add="add"
-                      @remove="remove">
+                      @update="update"
+                      @remove="remove"
+                      @updateCategory='updateCategory'>
             </HomePage>
-            <Register v-else-if="pageName == 'register'" @changePage="changePage"></Register>
+            <Register v-else-if="pageName == 'register'" @changePage="changePage" @register="register"></Register>
             <Login v-else-if="pageName == 'login'" @changePage="changePage" @login="login"></Login>
         </section>
 </template>
@@ -63,6 +65,24 @@ export default {
                 this.pageName = name
             },
 
+            register(payload) {
+                axios({
+                    url : '/register',
+                    method : 'post',
+                    data : {
+                        email : payload.email,
+                        password : payload.password
+                    }
+                })
+                .then(data => {
+                    console.log(data, 'register sukses')
+                    this.changePage('login')
+                })
+                .catch(err => {
+                    console.log(err.response, '<<<<eror register');
+                })
+            },
+
             login(payload) {
                 axios({
                     url : '/login',
@@ -76,6 +96,7 @@ export default {
                     console.log(data)
                     localStorage.token = data.data.token
                     this.pageName = 'home-page'
+                    this.read()
                 })
                 .catch(err => {
                     console.log(err.response, '<<<<eror login');
@@ -86,6 +107,8 @@ export default {
                  localStorage.clear()
                  this.pageName = 'login'
             },
+
+
             add(payload) {
                   axios({
                     url : '/tasks',
@@ -106,6 +129,26 @@ export default {
                     console.log(err.response, '<<<<eror login');
                 })
             },
+
+               update(payload) {
+                  axios({
+                    url : `/tasks/${payload.id}`,
+                    method : 'put',
+                    data : {
+                        title : payload.title
+                    },
+                     headers : {
+                        token : localStorage.token
+                    }
+                })
+                .then(data => {
+                    this.read()
+                })
+                .catch(err => {
+                    console.log(err.response, '<<<<eror update');
+                })
+            },
+
              remove(id) {
                 axios({
                     url : `/tasks/${id}`,
@@ -120,7 +163,26 @@ export default {
                 .catch(err => {
                     console.log(err.response, '<<<<eror login');
                 })
-            }
+            },
+            updateCategory(payload) {
+                console.log(payload.category.category, '<<<<<<ini payload patch');
+             axios({
+                    url : `/tasks/${payload.id}`,
+                    method : 'patch',
+                    headers : {
+                        token : localStorage.token
+                    },
+                    data : {
+                        category : payload.category.category
+                    }
+                })
+                .then(data => {
+                    this.read()
+                })
+                .catch(err => {
+                    console.log(err.response, '<<<<eror patch');
+                })
+        }
         }
 }
 </script>

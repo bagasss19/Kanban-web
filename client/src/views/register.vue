@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-header text">Register</div>
                     <div class="card-body">
-                        <form action="" method="">
+                        <form @submit.prevent="register">
                             <div class="form-group row">
                                 <label for="email_address" class="col-md-4 col-form-label text-md-right text">E-Mail Address</label>
                                 <div class="col-md-6">
@@ -25,7 +25,7 @@
 
                             <div class="text">
                                 <button type="submit" class="btn btn-primary">
-                                    Login
+                                    Register
                                 </button><br><br>
                                 <p>Already Have Account? login <a href="" @click.prevent="changePage">here</a></p>
                                 <p>
@@ -53,6 +53,13 @@ export default {
     methods : {
         changePage () {
             this.$emit('changePage','login')
+        },
+        register () {
+            let payload = {
+                email : this.email,
+                password : this.password
+            }
+            this.$emit('register', payload)
         }
     }
 }

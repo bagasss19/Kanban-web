@@ -7,6 +7,7 @@ route.use(authentication)
 route.get('/', Task.read)
 route.post('/',Task.add)
 route.get('/:id',authorization,Task.readId)
+route.patch('/:id',authorization,Task.patch)
 route.put('/:id',authorization,Task.edit)
 route.delete('/:id',authorization,Task.delete)
 

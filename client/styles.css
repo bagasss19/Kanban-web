@@ -75,7 +75,7 @@ body {
   max-height: calc(100% - 36px - 36px);
   overflow-y: auto;
 }
-.list ul li {
+.list ul {
   background-color: powderblue;
   margin-top: 20px;
   padding: 10px;
